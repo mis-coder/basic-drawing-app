@@ -1,3 +1,89 @@
-#drawing-area {
-  border: 1px solid #000;
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+
+:root{
+  --tools-dimension: 3rem;
+  --tools-primary-color: #222;
+}
+
+body{
+  overflow-x: hidden;
+}
+
+.tools{
+  background-color: var(--tools-primary-color);
+  height: auto;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.tools__color-picker{
+  height: 3rem;
+  width: 3rem;
+  border-radius: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.tools__color-picker input[type="color"]{
+  height: 100%;
+  width: 100%;
+  padding: 0.3rem;
+}
+
+.tools__undo, .tools__redo, .tools__clear, .tools__download{
+  background-color: #fff;
+  height: var(--tools-dimension);
+  width: var(--tools-dimension);
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--tools-primary-color)
+}
+
+.tools__slider input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.tools__slider input[type="range"]::-webkit-slider-runnable-track {
+  background: #fff;
+  height: 0.5rem;
+}
+
+.tools__slider input[type="range"]::-moz-range-track {
+  background: #fff;
+  height: 0.5rem;
+}
+
+.tools__slider input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -12px; 
+  background-color: #cfcfcf;
+  height: 2rem;
+  width: 1rem;  
+  border-radius: 0.3rem; 
+}
+
+.tools__slider input[type="range"]::-moz-range-thumb {
+  border: none; 
+  border-radius: 0.3rem; 
+  background-color: #cfcfcf;
+  height: 2rem;
+  width: 1rem;
+}
+/* TODO: add hover effects for tools */
+/* TODO: add scale up effect on click of tools */
+/* TODO: handle responsiveness */

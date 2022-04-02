@@ -16,9 +16,9 @@
   </head>
   <body>
     <canvas id="drawing-area" class="drawing-area"></canvas>
-    <div id="tools">
+    <div class="tools">
       <div class="tools__color-picker" id="color-picker">
-        <input type="color" />
+        <input type="color" value="#DE3163" />
       </div>
       <div class="tools__undo" id="undo-btn">
         <i class="fa-solid fa-arrow-rotate-left"></i>
@@ -26,14 +26,14 @@
       <div class="tools__redo" id="redo-btn">
         <i class="fa-solid fa-arrow-rotate-right"></i>
       </div>
-      <div class="tools__clear-area" id="clear-btn">
-        <button>clear</button>
+      <div class="tools__clear" id="clear-btn">
+        <i class="fa-solid fa-xmark"></i>
       </div>
-      <div class="tools__pen-thickness" id="thickness-slider">
-        <input type="range" min="1" max="100" />
+      <div class="tools__slider" id="thickness-slider">
+        <input type="range" min="1" max="100" value="5" />
       </div>
       <a
-        class="fa-solid fa-download"
+        class="fa-solid fa-download tools__download"
         href=""
         download="drawing.png"
         id="download-btn"
