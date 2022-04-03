@@ -38,7 +38,12 @@ body{
   padding: 0.3rem;
 }
 
-.tools__undo, .tools__redo, .tools__clear, .tools__download{
+.tools__undo.disabled{
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+.tools__undo, .tools__clear, .tools__download{
   background-color: #fff;
   height: var(--tools-dimension);
   width: var(--tools-dimension);
@@ -54,7 +59,6 @@ body{
   -webkit-appearance: none;
   appearance: none;
   background: transparent;
-  cursor: pointer;
 }
 
 .tools__slider input[type="range"]::-webkit-slider-runnable-track {
@@ -84,6 +88,17 @@ body{
   height: 2rem;
   width: 1rem;
 }
-/* TODO: add hover effects for tools */
-/* TODO: add scale up effect on click of tools */
-/* TODO: handle responsiveness */
+
+.tools__color-picker input, .tools__undo, .tools__clear, .tools__slider input, .tools__download{
+  cursor: pointer;
+}
+
+.tools__undo:hover,.tools__clear:hover, .tools__slider input:hover, .tools__download:hover{
+  opacity: 0.8;
+  transition: opacity 0.3s linear;
+}
+
+.tools__undo:active, .tools__clear:active, .tools__download:active{
+  transform: scale(1.09);
+  transition: scale 0.3s linear;
+}

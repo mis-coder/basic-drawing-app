@@ -1,36 +1,36 @@
-//TODO: refactor code
-//TODO: disable undo/redo functionality
+/* ----------------- DOM Elements ----------------- */
 const colorPicker = document.querySelector("#color-picker");
-const thicknessSlider = document.querySelector("#thickness-slider");
+const thicknessSlider = document.querySelector("#slider");
 const undoBtn = document.querySelector("#undo-btn");
-const redoBtn = document.querySelector("#redo-btn");
 const clearBtn = document.querySelector("#clear-btn");
 const downloadBtn = document.querySelector("#download-btn");
 const canvas = document.querySelector("#drawing-area");
 const ctx = canvas.getContext("2d");
 
-canvas.height = window.innerHeight - 64;
-canvas.width = window.innerWidth;
 let isDrawing = false;
+
 const strokePaths = [];
-const restoreStrokePaths = [];
 let index = -1;
-let rIndex = -1;
 
 let penColor = "#DE3163";
 let penThickness = 5;
-ctx.font = "30px Arial";
-ctx.textAlign = "center";
-ctx.fillText(
-  "start moving cursor on the white area!",
-  canvas.width / 2,
-  canvas.height / 2
-);
+const initialText = "start moving cursor on the white area!";
+
+const initializeCanvas = () => {
+  canvas.height = window.innerHeight - 64;
+  canvas.width = window.innerWidth;
+  ctx.font = "30px Arial";
+  ctx.textAlign = "center";
+  ctx.fillText(initialText, canvas.width / 2, canvas.height / 2);
+  disableUndoBtn();
+};
+
 const startDrawing = () => {
   if (strokePaths.length === 0) {
     clearDrawingArea();
   }
   isDrawing = true;
+  enableUndoBtn();
 };
 
 const endDrawing = () => {
@@ -72,36 +72,27 @@ const drawWithTouch = (event) => {
 const setPenColor = (event) => {
   const color = event.target.value;
   penColor = color;
-  penColor.style.backgroundColor = color;
 };
 
-//TODO: in progress
+const disableUndoBtn = () => {
+  undoBtn.classList.add("disabled");
+};
+
+const enableUndoBtn = () => {
+  undoBtn.classList.remove("disabled");
+};
+
 const undoYourMove = () => {
   if (index <= 0) {
     clearDrawingArea();
+    disableUndoBtn();
     return;
+  } else if (index > 0) {
+    enableUndoBtn();
+    strokePaths.pop();
+    index -= 1;
+    ctx.putImageData(strokePaths[index], 0, 0);
   }
-  const path = strokePaths.pop();
-  restoreStrokePaths.unshift(path);
-  rIndex += 1;
-  index -= 1;
-  ctx.putImageData(strokePaths[index], 0, 0);
-  console.log("U stroke: ", strokePaths);
-  console.log("U restore: ", restoreStrokePaths);
-};
-
-//TODO
-const redoYourMove = () => {
-  if (rIndex === -1) {
-    return;
-  }
-  ctx.putImageData(restoreStrokePaths.at(-1), 0, 0);
-  const path = restoreStrokePaths.pop();
-  strokePaths.push(path);
-  index += 1;
-  rIndex -= 1;
-  console.log("R stroke: ", strokePaths);
-  console.log("R restore: ", restoreStrokePaths);
 };
 
 const clearDrawingArea = () => {
@@ -116,6 +107,7 @@ const setPenThickness = (event) => {
   penThickness = event.target.value;
 };
 
+/* ----------------- Event Listeners ----------------- */
 canvas.addEventListener("mousedown", startDrawing);
 canvas.addEventListener("mousemove", drawWithMouse);
 canvas.addEventListener("mouseup", endDrawing);
@@ -126,7 +118,9 @@ canvas.addEventListener("touchend", endDrawing);
 
 colorPicker.addEventListener("change", setPenColor);
 thicknessSlider.addEventListener("change", setPenThickness);
+
 downloadBtn.addEventListener("click", downloadDrawingImage);
 clearBtn.addEventListener("click", clearDrawingArea);
 undoBtn.addEventListener("click", undoYourMove);
-redoBtn.addEventListener("click", redoYourMove);
+
+window.addEventListener("load", initializeCanvas);
