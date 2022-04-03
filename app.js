@@ -19,7 +19,7 @@ const initialText = "start moving cursor on the white area!";
 const initializeCanvas = () => {
   canvas.height = window.innerHeight - 64;
   canvas.width = window.innerWidth;
-  ctx.font = "30px Arial";
+  ctx.font = "20px Arial";
   ctx.textAlign = "center";
   ctx.fillText(initialText, canvas.width / 2, canvas.height / 2);
   disableUndoBtn();

@@ -13,6 +13,10 @@ body{
   overflow-x: hidden;
 }
 
+.drawing-area{
+  background-color: #fafafa;
+}
+
 .tools{
   background-color: var(--tools-primary-color);
   height: auto;
